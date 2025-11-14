@@ -1,0 +1,49 @@
+version: 2
+
+sources:
+  - name: tiktok_ads
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_TIKTOK_ADS
+    tables:
+      - name: ad_report_daily
+      - name: campaign_history
+      - name: advertiser
+
+  - name: meta_ads
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_META_ADS
+    tables:
+      - name: basic_ad
+      - name: basic_ad_actions
+      - name: campaign_history
+      - name: account_history
+
+  - name: google_ads
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_GOOGLE_ADS
+    tables:
+      - name: ad_stats
+      - name: campaign_stats
+      - name: standard_all
+      - name: campaign_history
+      - name: account_history
+
+  - name: dv360
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_DV360
+    tables:
+      - name: standard_all
+
+  - name: sa360_brand_msn
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_SA360
+    tables:
+      - name: ad_device_report
+      - name: campaign_prebuilt
+      - name: customer
+
+  - name: ga4
+    database: MARKETING_ANALYTICS_DB
+    schema: RAW_GA4
+    tables:
+      - name: events
