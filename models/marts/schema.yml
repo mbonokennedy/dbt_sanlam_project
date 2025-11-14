@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fact_campaign_performance_daily
+    description: "The core fact table for campaign performance metrics, unified across all platforms at the Day/Campaign level."
+    columns:
+      - name: date_campaign_key
+        description: "Surrogate primary key for the fact row (date + campaign_key)."
+        tests:
+          - unique
+          - not_null
+      - name: campaign_key
+        description: "Foreign key to the dim_campaign table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_campaign')
+              field: campaign_key
+      - name: date_day
+        description: "The day the metrics were recorded."
+        tests:
+          - not_null
+      - name: spend
+        description: "Total spend in USD."
+        tests:
+          - not_null
+          - dbt_expectations.at_least_one:
+              column_values: [0]
+          - dbt_expectations.expression_is_true:
+              expression: "spend >= 0"
+
+  - name: agg_campaign_monthly_ml
+    description: "Monthly aggregated table for advanced analytics and ML modeling."
+    columns:
+      - name: year_month
+        tests:
+          - not_null
+      - name: ctr_rate
+        description: "Click-Through Rate (clicks / impressions)."
